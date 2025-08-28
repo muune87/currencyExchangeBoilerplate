@@ -113,6 +113,7 @@ export default function EntryForm() {
 
       <label>Memo</label>
       <textarea
+        style={{ width: '100%' }}
         value={form.memo}
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
           setForm({ ...form, memo: e.target.value })
