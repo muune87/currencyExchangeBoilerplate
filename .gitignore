@@ -32,6 +32,18 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+# 환경 변수 파일
+.env.local
+!.env.local.example
+
+# 디폴트 무시된 파일
+/shelf/
+/workspace.xml
+# 에디터 기반 HTTP 클라이언트 요청
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
 
 # vercel
 .vercel

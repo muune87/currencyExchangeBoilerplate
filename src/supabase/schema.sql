@@ -1,9 +1,7 @@
 -- Extensions (Supabase usually has pgcrypto enabled for gen_random_uuid)
 create extension if not exists pgcrypto;
 
-
 -- users table is managed by Supabase auth (auth.users)
-
 
 create table if not exists entries (
                                        id uuid primary key default gen_random_uuid(),
@@ -28,7 +26,7 @@ create table if not exists memos (
     user_id uuid not null references auth.users(id) on delete cascade,
     body text not null,
     created_at timestamptz default now()
-    );
+    ); 
 
 
 create table if not exists posts (

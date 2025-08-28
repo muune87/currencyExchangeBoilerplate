@@ -1,9 +1,11 @@
-"use client";
-import { createBrowserClient } from "@supabase/ssr";
-import type { Database } from "@/types/supabase";
+'use client';
+import { createBrowserClient } from '@supabase/ssr';
+import type { Database } from '@/types/supabase';
 
-export const supabaseBrowser = () =>
-    createBrowserClient<Database>(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-    );
+// Supabase 클라이언트 생성 함수
+export function createClient() {
+  return createBrowserClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  );
+}
