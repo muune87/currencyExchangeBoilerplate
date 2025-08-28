@@ -39,7 +39,7 @@ export default function EntryForm() {
 
   return (
     <form onSubmit={onSubmit} className="card">
-      <h3>Add Entry</h3>
+      <h3>거래 추가하기</h3>
       <label>Date</label>
       <input
         type="date"

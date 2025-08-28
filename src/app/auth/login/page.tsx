@@ -16,7 +16,7 @@ export default function LoginPage() {
           // ✅ 로그인 후 '/auth/callback?next=/dashboard' 로 보내 세션 교환 → 대시보드로 이동
           redirectTo={
             typeof window !== 'undefined'
-              ? `${window.location.origin}/auth/callback?next=/dashboard`
+              ? `${window.location.origin}/auth/callback?next=/`
               : undefined
           }
           onlyThirdPartyProviders={false}
