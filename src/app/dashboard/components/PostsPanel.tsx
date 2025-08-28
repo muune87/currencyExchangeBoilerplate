@@ -1,6 +1,6 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { addPost } from '@/app/actions/posts';
+import { useEffect, useState } from 'react';
+import { addPost, listPosts } from '@/app/actions/posts';
 import { createClient } from '@/lib/supabase/client';
 
 type Post = {
@@ -8,8 +8,9 @@ type Post = {
   title: string;
   body: string;
   created_at: string | null;
-  user_id: string;
-  user_email?: string | null;
+  full_name?: string | null;
+  email?: string | null;
+  avatar_url?: string | null;
 };
 
 export default function PostsPanel() {
@@ -23,15 +24,14 @@ export default function PostsPanel() {
 
     async function fetchPosts() {
       const { data, error } = await supabase
-        .from('posts')
-        .select('id, title, body, created_at, user_id, user_email')
+        .from('posts_with_author')
+        .select('*')
         .order('created_at', { ascending: false })
         .limit(20);
 
-      // 타입 명시
       const postsData = (data ?? []) as Post[];
 
-      if (!error && postsData.length > 0) {
+      if (!error) {
         setPosts(postsData);
       }
     }
@@ -108,7 +108,21 @@ export default function PostsPanel() {
                 <td>{p.title}</td>
                 <td>{p.body}</td>
                 <td>{createdAt ? createdAt.toLocaleString() : '-'}</td>
-                <td>{p.user_email ?? '익명'}</td>
+                <td>
+                  {p.full_name ?? p.email ?? '익명'}
+                  {p.avatar_url && (
+                    <img
+                      src={p.avatar_url}
+                      alt="avatar"
+                      style={{
+                        width: 24,
+                        height: 24,
+                        borderRadius: '50%',
+                        marginLeft: 4,
+                      }}
+                    />
+                  )}
+                </td>
               </tr>
             );
           })}

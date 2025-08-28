@@ -44,6 +44,13 @@ export type Database = {
             referencedRelation: "posts"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "comments_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "posts_with_author"
+            referencedColumns: ["id"]
+          },
         ]
       }
       entries: {
@@ -115,7 +122,6 @@ export type Database = {
           created_at: string | null
           id: string
           title: string
-          user_email: string | null
           user_id: string
         }
         Insert: {
@@ -123,7 +129,6 @@ export type Database = {
           created_at?: string | null
           id?: string
           title: string
-          user_email?: string | null
           user_id: string
         }
         Update: {
@@ -131,14 +136,48 @@ export type Database = {
           created_at?: string | null
           id?: string
           title?: string
-          user_email?: string | null
           user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          email: string | null
+          full_name: string | null
+          id: string
+          updated_at: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          email?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string | null
         }
         Relationships: []
       }
     }
     Views: {
-      [_ in never]: never
+      posts_with_author: {
+        Row: {
+          avatar_url: string | null
+          body: string | null
+          created_at: string | null
+          email: string | null
+          full_name: string | null
+          id: string | null
+          title: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never

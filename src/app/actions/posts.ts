@@ -16,7 +16,6 @@ export async function addPost(title: string, body: string) {
     user_id: user.id,
     title,
     body,
-    user_email: user.email,
   };
 
   const { error } = await supabase.from('posts').insert([row]);
@@ -26,19 +25,20 @@ export async function addPost(title: string, body: string) {
 /** created_at은 스키마상 string|null 이므로 그대로 반영 */
 export async function listPosts(): Promise<
   Array<{
-    id: string;
-    title: string;
-    body: string;
+    id: string | null;
+    title: string | null;
+    body: string | null;
     created_at: string | null;
-    user_id: string;
-    user_email?: string | null;
+    full_name?: string | null;
+    email?: string | null;
+    avatar_url?: string | null;
   }>
 > {
   const supabase = await createClient();
 
   const { data, error } = await supabase
-    .from('posts')
-    .select('id, title, body, created_at, user_id, user_email')
+    .from('posts_with_author')
+    .select('*')
     .order('created_at', { ascending: false })
     .limit(20);
 
